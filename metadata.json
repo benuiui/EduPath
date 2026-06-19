@@ -1,0 +1,6 @@
+{
+  "name": "EduPath KRS",
+  "description": "Asisten akademik cerdas berbasis AI untuk memetakan rencana studi (KRS) mahasiswa Informatika.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
