@@ -282,3 +282,19 @@ if (process.env.NODE_ENV !== "production") {
     console.log(`[PROD] Fullstack server running on http://localhost:${PORT}`);
   });
 }
+
+// Vite Setup for Development vs Production
+if (process.env.NODE_ENV !== "production") {
+    createViteServer({
+        server: { middlewareMode: true },
+        appType: "spa",
+    }).then((vite) => {
+        app.use(vite.middlewares);
+        app.listen(PORT, "0.0.0.0", () => {
+            console.log(`[DEV] Fullstack server running on http://localhost:${PORT}`);
+        });
+    });
+}
+
+// Export app agar bisa dibaca oleh Vercel Serverless
+export default app;
