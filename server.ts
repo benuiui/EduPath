@@ -1,6 +1,5 @@
 import express from "express";
 import path from "path";
-import { createServer as createViteServer } from "vite";
 import { GoogleGenAI, Type } from "@google/genai";
 import dotenv from "dotenv";
 
@@ -285,13 +284,16 @@ if (process.env.NODE_ENV !== "production") {
 
 // Vite Setup for Development vs Production
 if (process.env.NODE_ENV !== "production") {
-    createViteServer({
-        server: { middlewareMode: true },
-        appType: "spa",
-    }).then((vite) => {
-        app.use(vite.middlewares);
-        app.listen(PORT, "0.0.0.0", () => {
-            console.log(`[DEV] Fullstack server running on http://localhost:${PORT}`);
+    // Dynamic import agar Vite tidak di-load oleh Vercel di production
+    import("vite").then(({ createServer: createViteServer }) => {
+        createViteServer({
+            server: { middlewareMode: true },
+            appType: "spa",
+        }).then((vite) => {
+            app.use(vite.middlewares);
+            app.listen(PORT, "0.0.0.0", () => {
+                console.log(`[DEV] Fullstack server running on http://localhost:${PORT}`);
+            });
         });
     });
 }
