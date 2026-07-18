@@ -259,32 +259,7 @@ app.get("/api/courses", (req, res) => {
 
 // Vite Setup for Development vs Production
 if (process.env.NODE_ENV !== "production") {
-  createViteServer({
-    server: { middlewareMode: true },
-    appType: "spa",
-  }).then((vite) => {
-    app.use(vite.middlewares);
-    
-    app.listen(PORT, "0.0.0.0", () => {
-      console.log(`[DEV] Fullstack server running on http://localhost:${PORT}`);
-    });
-  });
-} else {
-  const distPath = path.join(process.cwd(), "dist");
-  app.use(express.static(distPath));
-  
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(distPath, "index.html"));
-  });
-
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`[PROD] Fullstack server running on http://localhost:${PORT}`);
-  });
-}
-
-// Vite Setup for Development vs Production
-if (process.env.NODE_ENV !== "production") {
-    // Dynamic import agar Vite tidak di-load oleh Vercel di production
+    // Dynamic import agar Vite tidak dibaca oleh Vercel
     import("vite").then(({ createServer: createViteServer }) => {
         createViteServer({
             server: { middlewareMode: true },
