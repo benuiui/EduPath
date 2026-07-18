@@ -91,7 +91,7 @@ export default function StudentDashboard({ onLogout, studentEmail }: StudentDash
     setRecommendationResult(null);
 
     try {
-      const response = await fetch("/api/recommendations", {
+      const response = await fetch("https://edu-path-eaa2.vercel.app/api/recommendations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -179,7 +179,7 @@ export default function StudentDashboard({ onLogout, studentEmail }: StudentDash
     setIsChatLoading(true);
 
     try {
-      const response = await fetch("/api/chat", {
+      const response = await fetch("https://edu-path-eaa2.vercel.app/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
